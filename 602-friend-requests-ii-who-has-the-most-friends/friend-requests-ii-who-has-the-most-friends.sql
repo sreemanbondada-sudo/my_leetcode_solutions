@@ -1,0 +1,13 @@
+/* Write your PL/SQL query statement below */
+SELECT id, num
+FROM (
+    SELECT id, COUNT(*) AS num
+    FROM (
+        SELECT requester_id AS id FROM RequestAccepted
+        UNION ALL
+        SELECT accepter_id AS id FROM RequestAccepted
+    ) all_ids
+    group by id
+    order by  COUNT(*) desc
+) 
+where ROWNUM = 1;
